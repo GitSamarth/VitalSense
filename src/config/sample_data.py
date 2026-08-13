@@ -1,5 +1,5 @@
 SAMPLE_REPORT = """BLOOD TEST REPORT
-Date: 15/03/2024
+Date: 13/08/2026
 Laboratory: HealthCare Diagnostics
 
 COMPLETE BLOOD COUNT (CBC)

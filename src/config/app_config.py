@@ -1,6 +1,6 @@
-APP_NAME = "HIA"
+APP_NAME = "VitalSense"
 APP_DESCRIPTION = "Your Personal Health Insights Agent"
-APP_ICON = "🩺"
+APP_ICON = "❖"
 APP_TAGLINE = "Discover a Healthier You with AI"
 
 # App settings
@@ -10,5 +10,5 @@ SESSION_TIMEOUT_MINUTES = 30
 ANALYSIS_DAILY_LIMIT = 15
 
 # UI Settings
-PRIMARY_COLOR = "#64B5F6"
-SECONDARY_COLOR = "#1976D2"
+PRIMARY_COLOR = "#10B981"
+SECONDARY_COLOR = "#0D9488"
