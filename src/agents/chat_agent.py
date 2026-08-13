@@ -8,6 +8,8 @@ import logging
 import re
 import os
 
+logger = logging.getLogger("chat_agent")
+
 
 class ChatAgent:
     def __init__(self):
@@ -52,7 +54,7 @@ class ChatAgent:
         tokenised_chunks = [self._tokenize(chunk) for chunk in texts]
         self.bm25_index = BM25Okapi(tokenised_chunks)
         self.bm25_chunks = texts
-        logging.debug("BM25 index built over %d chunks.", len(texts))
+        logger.debug("BM25 index built over %d chunks.", len(texts))
 
         return vectorstore
 
@@ -70,9 +72,8 @@ class ChatAgent:
     def retrieve_bm25(self, query: str, k: int = 5) -> list[str]:
         """Return the top-k chunks from BM25 for a given query.
 
-        This is a standalone retrieval path — not used in get_response yet.
-        Call this directly to verify BM25 is surfacing sensible results before
-        wiring it into the hybrid/RRF fusion step.
+        Used both in isolation (testing) and internally by get_response as one
+        of the two ranked lists passed to fuse_rrf.
 
         Args:
             query: The raw query string.
@@ -82,7 +83,7 @@ class ChatAgent:
             Ordered list of chunk strings (highest BM25 score first).
         """
         if self.bm25_index is None or not self.bm25_chunks:
-            logging.warning("retrieve_bm25 called before initialize_vector_store.")
+            logger.warning("retrieve_bm25 called before initialize_vector_store.")
             return []
 
         tokenised_query = self._tokenize(query)
@@ -93,12 +94,62 @@ class ChatAgent:
             zip(scores, self.bm25_chunks), key=lambda x: x[0], reverse=True
         )
         top_k = [chunk for _, chunk in ranked[:k]]
-        logging.debug(
+        logger.debug(
             "BM25 top-%d for query %r:\n%s",
             k, query,
             "\n---\n".join(f"[score={s:.4f}] {c[:120]}" for s, c in ranked[:k]),
         )
         return top_k
+
+    @staticmethod
+    def fuse_rrf(
+        dense_results: list[str],
+        bm25_results: list[str],
+        k: int = 60,
+    ) -> list[str]:
+        """Combine FAISS dense and BM25 sparse ranked lists via Reciprocal Rank Fusion.
+
+        RRF score per chunk:  score(d) = sum_over_lists( 1 / (k + rank_in_list) )
+        where rank is 1-indexed.  Chunks present in only one list still accumulate
+        a score from that list.  k=60 is the standard RRF smoothing constant.
+
+        NOTE on zero-score BM25 chunks: BM25Okapi ranks ALL corpus chunks even when
+        their score is 0.0 (no query token match). Those chunks are still present in
+        bm25_results at their natural rank position and contribute a small RRF score
+        ( 1/(60+rank) ).  We do NOT treat 0-score BM25 chunks as absent.
+
+        Args:
+            dense_results: Chunks ordered by FAISS similarity (index 0 = most similar).
+            bm25_results:  Chunks ordered by BM25 score (index 0 = highest score).
+            k:             RRF smoothing constant (default 60).
+
+        Returns:
+            All unique chunks sorted by combined RRF score, descending.
+        """
+        rrf_scores: dict[str, float] = {}
+
+        for rank, chunk in enumerate(dense_results, start=1):
+            rrf_scores[chunk] = rrf_scores.get(chunk, 0.0) + 1.0 / (k + rank)
+
+        for rank, chunk in enumerate(bm25_results, start=1):
+            rrf_scores[chunk] = rrf_scores.get(chunk, 0.0) + 1.0 / (k + rank)
+
+        fused = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
+
+        # Debug: show per-chunk rank sources and final RRF score
+        dense_rank_map = {c: r for r, c in enumerate(dense_results, start=1)}
+        bm25_rank_map  = {c: r for r, c in enumerate(bm25_results, start=1)}
+        log_lines = []
+        for chunk, score in fused:
+            dr = dense_rank_map.get(chunk, "-")
+            br = bm25_rank_map.get(chunk, "-")
+            log_lines.append(
+                f"[rrf={score:.5f} | dense_rank={dr} | bm25_rank={br}] "
+                f"{chunk[:100].strip()!r}"
+            )
+        logger.debug("RRF fused ranking:\n%s", "\n".join(log_lines))
+
+        return [chunk for chunk, _ in fused]
 
     def _format_chat_history(self, chat_history):
         """Format chat history for Groq API."""
@@ -155,17 +206,28 @@ Standalone Question:"""
         # 1. Contextualize query based on chat history
         contextualized_query = self._contextualize_query(query, chat_history)
 
-        # 2. Retrieve relevant documents
+        # 2. Hybrid retrieval: FAISS dense + BM25 sparse, fused via RRF
         try:
-            retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
-            docs = retriever.get_relevant_documents(contextualized_query)
-            context = "\n\n".join([doc.page_content for doc in docs])
+            # 2a. Dense: FAISS top-5 (wider than final k=3 to give RRF more to work with)
+            retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
+            dense_docs = retriever.invoke(contextualized_query)
+            dense_chunks = [doc.page_content for doc in dense_docs]
 
-            # If context is just placeholder text, set to empty
+            # 2b. Sparse: BM25 top-5 over the same corpus
+            bm25_chunks = self.retrieve_bm25(contextualized_query, k=5)
+
+            # 2c. Fuse both ranked lists with RRF (k=60 smoothing constant)
+            fused_chunks = self.fuse_rrf(dense_chunks, bm25_chunks, k=60)
+
+            # 2d. Take top-3 fused chunks as the LLM context window
+            context = "\n\n".join(fused_chunks[:3])
+
+            # Guard against placeholder-only context
             if context.strip() == "No report context available.":
                 context = ""
-        except Exception:
-            # If retrieval fails, proceed without context
+        except Exception as e:
+            # Fallback: no context rather than crash
+            logger.error(f"Retrieval failed: {e}")
             context = ""
 
         # 3. Build prompt with context and chat history

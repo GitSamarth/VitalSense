@@ -6,10 +6,19 @@ from components.analysis_form import show_analysis_form
 from components.footer import show_footer
 from config.app_config import APP_NAME, APP_TAGLINE, APP_DESCRIPTION, APP_ICON
 from services.ai_service import get_chat_response
+import logging
+
+# Keep root logger quiet so third-party libraries don't flood the terminal.
+logging.basicConfig(
+    level=logging.WARNING,
+    format="%(levelname)s:%(name)s:%(message)s",
+)
+# Only enable DEBUG for our specific VitalSense chat agent.
+logging.getLogger("chat_agent").setLevel(logging.DEBUG)
 
 # Must be the first Streamlit command
 st.set_page_config(
-    page_title="HIA - Health Insights Agent", page_icon="🩺", layout="wide"
+    page_title="VitalSense - Your AI Health Assistant", page_icon="❖", layout="wide"
 )
 
 # Initialize session state
@@ -22,6 +31,25 @@ st.markdown(
         /* Hide form submission helper text */
         div[data-testid="InputInstructions"] > span:nth-child(1) {
             visibility: hidden;
+        }
+
+        /* Constrain the main content area to ~900px and center it */
+        .main .block-container {
+            max-width: 900px !important;
+            margin: 0 auto !important;
+        }
+
+        /* Restyle the disclaimer (blockquote) inside the AI response to be smaller and muted */
+        div.stAlert blockquote {
+            font-size: 0.85em !important;
+            color: #888888 !important;
+            border-left: 3px solid #666666 !important;
+            font-weight: normal !important;
+            margin-bottom: 1em !important;
+            padding-left: 1em !important;
+        }
+        div.stAlert blockquote * {
+            color: #888888 !important;
         }
     </style>
 """,
@@ -173,3 +201,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
