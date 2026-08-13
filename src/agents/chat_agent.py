@@ -3,6 +3,9 @@ from groq import Groq
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
+from rank_bm25 import BM25Okapi
+import logging
+import re
 import os
 
 
@@ -23,9 +26,13 @@ class ChatAgent:
         )
         self.client = Groq(api_key=st.secrets["GROQ_API_KEY"])
         self.model_name = "llama-3.3-70b-versatile"
+        # BM25 index and raw chunks — populated in initialize_vector_store.
+        # Parallel retrieval path; not yet fused into LLM context (RRF next step).
+        self.bm25_index = None
+        self.bm25_chunks = []
 
     def initialize_vector_store(self, text_content):
-        """Create vector store from text content."""
+        """Create FAISS vector store and BM25 index from text content."""
         if not text_content or text_content.strip() == "":
             # Create a minimal vector store with a placeholder
             text_content = "No report context available."
@@ -35,8 +42,63 @@ class ChatAgent:
             # If splitting results in empty list, add at least one text
             texts = [text_content]
 
+        # Dense retrieval: FAISS vector store (unchanged)
         vectorstore = FAISS.from_texts(texts, self.embeddings)
+
+        # Sparse retrieval: BM25 over the same chunks.
+        # Tokenise by stripping non-alphanumeric chars then lowercasing+splitting.
+        # Plain whitespace split kept 'hemoglobin:' as a single token, causing
+        # zero BM25 scores when the query contained bare 'hemoglobin'.
+        tokenised_chunks = [self._tokenize(chunk) for chunk in texts]
+        self.bm25_index = BM25Okapi(tokenised_chunks)
+        self.bm25_chunks = texts
+        logging.debug("BM25 index built over %d chunks.", len(texts))
+
         return vectorstore
+
+    @staticmethod
+    def _tokenize(text: str) -> list[str]:
+        """Lowercase + strip punctuation before whitespace split.
+
+        Bare whitespace split keeps trailing punctuation attached to tokens
+        (e.g. 'hemoglobin:'), causing BM25 misses when queries contain
+        the bare form ('hemoglobin'). Stripping non-alphanumeric chars first
+        normalises both sides of the match.
+        """
+        return re.sub(r"[^a-z0-9\s]", " ", text.lower()).split()
+
+    def retrieve_bm25(self, query: str, k: int = 5) -> list[str]:
+        """Return the top-k chunks from BM25 for a given query.
+
+        This is a standalone retrieval path — not used in get_response yet.
+        Call this directly to verify BM25 is surfacing sensible results before
+        wiring it into the hybrid/RRF fusion step.
+
+        Args:
+            query: The raw query string.
+            k:     Number of top BM25 results to return (default 5).
+
+        Returns:
+            Ordered list of chunk strings (highest BM25 score first).
+        """
+        if self.bm25_index is None or not self.bm25_chunks:
+            logging.warning("retrieve_bm25 called before initialize_vector_store.")
+            return []
+
+        tokenised_query = self._tokenize(query)
+        scores = self.bm25_index.get_scores(tokenised_query)
+
+        # Pair each chunk with its score, sort descending, return top-k text
+        ranked = sorted(
+            zip(scores, self.bm25_chunks), key=lambda x: x[0], reverse=True
+        )
+        top_k = [chunk for _, chunk in ranked[:k]]
+        logging.debug(
+            "BM25 top-%d for query %r:\n%s",
+            k, query,
+            "\n---\n".join(f"[score={s:.4f}] {c[:120]}" for s, c in ranked[:k]),
+        )
+        return top_k
 
     def _format_chat_history(self, chat_history):
         """Format chat history for Groq API."""

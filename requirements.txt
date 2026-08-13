@@ -13,3 +13,4 @@ langchain-huggingface
 faiss-cpu
 sentence-transformers
 langchain-text-splitters
+rank_bm25
