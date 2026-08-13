@@ -1,0 +1,98 @@
+[
+  {
+    "user_input": "What is the hemoglobin level?",
+    "retrieved_contexts": [
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)",
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)"
+    ],
+    "response": "I don't have any information about hemoglobin levels in the chat history. \n\nHowever, I can provide general information that hemoglobin levels are typically measured in grams per deciliter (g/dL) and can vary depending on age, sex, and other factors. \n\nA normal hemoglobin level for adults is usually between 13.5 and 17.5 g/dL for men and 12 and 16 g/dL for women.",
+    "reference": "11.2 g/dL, low",
+    "faithfulness": 0.2857142857142857,
+    "answer_relevancy": 0.7774077706955798
+  },
+  {
+    "user_input": "What is the total cholesterol?",
+    "retrieved_contexts": [
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)",
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)"
+    ],
+    "response": "I don't know. There is no information about total cholesterol in the chat history.",
+    "reference": "238 mg/dL, high",
+    "faithfulness": 0.3333333333333333,
+    "answer_relevancy": 0.0
+  },
+  {
+    "user_input": "What is the LDL cholesterol?",
+    "retrieved_contexts": [
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "response": "LDL cholesterol, also known as low-density lipoprotein cholesterol, is a type of fat found in the blood. High levels of LDL cholesterol can increase the risk of heart disease and stroke. It is often referred to as \"bad\" cholesterol because it can accumulate in the walls of the arteries, causing them to narrow and harden.",
+    "reference": "162 mg/dL, high",
+    "faithfulness": 0.125,
+    "answer_relevancy": 0.8151270323781324
+  },
+  {
+    "user_input": "What is the ALT level?",
+    "retrieved_contexts": [
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "response": "I don't know.",
+    "reference": "68 U/L, high",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.0
+  },
+  {
+    "user_input": "What is the TSH level?",
+    "retrieved_contexts": [
+      "=== THYROID FUNCTION TESTS (TFT) ===\nTSH (Thyroid Stimulating Hormone): 6.8 uIU/mL [HIGH] (Reference: 0.4-4.0)\nFree T4 (FT4): 0.7 ng/dL        [LOW]  (Reference: 0.8-1.8)\nFree T3 (FT3): 2.4 pg/mL        [LOW]  (Reference: 2.3-4.2)\nAnti-TPO Antibodies: 145 IU/mL  [HIGH] (Reference: <35)",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)"
+    ],
+    "response": "I don't have any previous information about TSH levels in this chat history. \n\nTSH stands for Thyroid-Stimulating Hormone, a hormone produced by the pituitary gland that regulates the production of thyroid hormones. \n\nA normal TSH level typically ranges from 0.4 to 4.5 milliunits per liter (mU/L), but this can vary depending on the laboratory and individual's health status.",
+    "reference": "6.8 uIU/mL, high",
+    "faithfulness": 0.5714285714285714,
+    "answer_relevancy": 0.9062547169872385
+  },
+  {
+    "user_input": "What is the Free T4 level?",
+    "retrieved_contexts": [
+      "=== THYROID FUNCTION TESTS (TFT) ===\nTSH (Thyroid Stimulating Hormone): 6.8 uIU/mL [HIGH] (Reference: 0.4-4.0)\nFree T4 (FT4): 0.7 ng/dL        [LOW]  (Reference: 0.8-1.8)\nFree T3 (FT3): 2.4 pg/mL        [LOW]  (Reference: 2.3-4.2)\nAnti-TPO Antibodies: 145 IU/mL  [HIGH] (Reference: <35)",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "Albumin: 4.1 g/dL                       (Reference: 3.5-5.0)\nGlobulin: 3.1 g/dL                      (Reference: 2.3-3.5)"
+    ],
+    "response": "I don't know the answer as there is no relevant context provided.",
+    "reference": "0.7 ng/dL, low",
+    "faithfulness": 0.0,
+    "answer_relevancy": 0.0
+  },
+  {
+    "user_input": "What is the platelet count?",
+    "retrieved_contexts": [
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)",
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "BLOOD TEST REPORT\nDate: 13/08/2026\nPatient: Test Patient | Age: 42 | Sex: Male\nLaboratory: VitalSense Diagnostics"
+    ],
+    "response": "I don't have any information from the chat history to provide a specific answer about platelet count. \n\nHowever, I can provide general information. The platelet count, also known as thrombocytopenia when low, is a blood test that measures the number of platelets in the blood. \n\nA normal platelet count ranges from 150,000 to 450,000 platelets per microliter of blood.",
+    "reference": "420,000 /uL, high",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8943136222639545
+  },
+  {
+    "user_input": "What is the AST level?",
+    "retrieved_contexts": [
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "response": "I don't know.",
+    "reference": "54 U/L, high",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.0
+  }
+]

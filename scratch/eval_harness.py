@@ -139,8 +139,14 @@ def main():
         # (We replicate the retrieval block since get_response hides the exact context string from its return type)
         dense_docs = vectorstore.as_retriever(search_kwargs={"k": 5}).invoke(q)
         dense_chunks = [d.page_content for d in dense_docs]
-        bm25_chunks = agent.retrieve_bm25(q, k=5)
-        fused = agent.fuse_rrf(dense_chunks, bm25_chunks, k=60)
+
+        if hasattr(agent, "retrieve_bm25") and hasattr(agent, "fuse_rrf"):
+            # Hybrid path: BM25 + RRF fusion
+            bm25_chunks = agent.retrieve_bm25(q, k=5)
+            fused = agent.fuse_rrf(dense_chunks, bm25_chunks, k=60)
+        else:
+            # Dense-only path: just use FAISS results directly
+            fused = dense_chunks
         final_contexts = fused[:3]
         
         # 2. Get the actual LLM response
@@ -187,7 +193,6 @@ def main():
         metrics=[faithfulness, answer_relevancy],
         llm=judge_llm,
         embeddings=judge_embeddings,
-        raise_exceptions=True,
     )
     
     # Print results
@@ -203,7 +208,7 @@ def main():
     print(result)
     
     # Save to JSON
-    out_file = "scratch/eval_results_hybrid.json"
+    out_file = "scratch/eval_results_baseline_dense_only.json"
     with open(out_file, "w") as f:
         # Convert EvaluationResult -> Pandas DataFrame -> List of Dicts for JSON serialization
         json.dump(df.to_dict(orient="records"), f, indent=2)
