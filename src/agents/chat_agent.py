@@ -8,9 +8,18 @@ import os
 
 class ChatAgent:
     def __init__(self):
-        self.embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+        # tokenizer_kwargs: use_fast=True prevents the slow-tokenizer fallback path
+        # that also triggers huggingface_hub's chat-template metadata fetch (404 on
+        # embedding-only models like all-MiniLM-L6-v2 under huggingface_hub>=0.35).
+        self.embeddings = HuggingFaceEmbeddings(
+            model_name="all-MiniLM-L6-v2",
+            model_kwargs={"tokenizer_kwargs": {"use_fast": True}},
+        )
+        # smaller chunks improve retrieval precision for narrow factual lookups 
+        # (e.g. specific lab values) at k=3, since large 1000-char chunks risk 
+        # diluting relevance with unrelated report sections in the same chunk.
         self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000, chunk_overlap=200
+            chunk_size=512, chunk_overlap=50
         )
         self.client = Groq(api_key=st.secrets["GROQ_API_KEY"])
         self.model_name = "llama-3.3-70b-versatile"
