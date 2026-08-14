@@ -1,0 +1,98 @@
+[
+  {
+    "user_input": "What is the hemoglobin level?",
+    "retrieved_contexts": [
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)",
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)"
+    ],
+    "response": "The hemoglobin level is 11.2 g/dL, which is classified as LOW. This is below the reference range of 13.5-17.5 g/dL.",
+    "reference": "11.2 g/dL, low",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8339405942538795
+  },
+  {
+    "user_input": "What is the total cholesterol?",
+    "retrieved_contexts": [
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)",
+      "Albumin: 4.1 g/dL                       (Reference: 3.5-5.0)\nGlobulin: 3.1 g/dL                      (Reference: 2.3-3.5)"
+    ],
+    "response": "The total cholesterol is 238 mg/dL, which is considered high according to the reference value. This is above the normal range of <200 mg/dL.",
+    "reference": "238 mg/dL, high",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8392978043671827
+  },
+  {
+    "user_input": "What is the LDL cholesterol?",
+    "retrieved_contexts": [
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "Albumin: 4.1 g/dL                       (Reference: 3.5-5.0)\nGlobulin: 3.1 g/dL                      (Reference: 2.3-3.5)",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)"
+    ],
+    "response": "The LDL cholesterol level is 162 mg/dL, which is considered high. This is above the reference range of <130 mg/dL. A high LDL cholesterol level can increase the risk of heart disease.",
+    "reference": "162 mg/dL, high",
+    "faithfulness": 0.75,
+    "answer_relevancy": 0.795997349027501
+  },
+  {
+    "user_input": "What is the ALT level?",
+    "retrieved_contexts": [
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "response": "The ALT level is 68 U/L, which is considered HIGH. This is above the reference range of 7-56 U/L.",
+    "reference": "68 U/L, high",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8529885248177245
+  },
+  {
+    "user_input": "What is the TSH level?",
+    "retrieved_contexts": [
+      "=== THYROID FUNCTION TESTS (TFT) ===\nTSH (Thyroid Stimulating Hormone): 6.8 uIU/mL [HIGH] (Reference: 0.4-4.0)\nFree T4 (FT4): 0.7 ng/dL        [LOW]  (Reference: 0.8-1.8)\nFree T3 (FT3): 2.4 pg/mL        [LOW]  (Reference: 2.3-4.2)\nAnti-TPO Antibodies: 145 IU/mL  [HIGH] (Reference: <35)",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "response": "The TSH level is 6.8 uIU/mL, which is considered HIGH according to the reference range of 0.4-4.0. This suggests that the thyroid gland is underactive, as the pituitary gland is producing more TSH to stimulate it.",
+    "reference": "6.8 uIU/mL, high",
+    "faithfulness": 0.6666666666666666,
+    "answer_relevancy": 0.7644201171673672
+  },
+  {
+    "user_input": "What is the Free T4 level?",
+    "retrieved_contexts": [
+      "=== THYROID FUNCTION TESTS (TFT) ===\nTSH (Thyroid Stimulating Hormone): 6.8 uIU/mL [HIGH] (Reference: 0.4-4.0)\nFree T4 (FT4): 0.7 ng/dL        [LOW]  (Reference: 0.8-1.8)\nFree T3 (FT3): 2.4 pg/mL        [LOW]  (Reference: 2.3-4.2)\nAnti-TPO Antibodies: 145 IU/mL  [HIGH] (Reference: <35)",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "Albumin: 4.1 g/dL                       (Reference: 3.5-5.0)\nGlobulin: 3.1 g/dL                      (Reference: 2.3-3.5)"
+    ],
+    "response": "The Free T4 (FT4) level is 0.7 ng/dL, which is considered low according to the reference range of 0.8-1.8. This indicates that the patient's thyroid function is not producing enough Free T4.",
+    "reference": "0.7 ng/dL, low",
+    "faithfulness": 0.75,
+    "answer_relevancy": 0.8462350655925855
+  },
+  {
+    "user_input": "What is the platelet count?",
+    "retrieved_contexts": [
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)",
+      "Albumin: 4.1 g/dL                       (Reference: 3.5-5.0)\nGlobulin: 3.1 g/dL                      (Reference: 2.3-3.5)",
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)"
+    ],
+    "response": "The platelet count is 420,000 /uL, which is in the high range according to the reference values (Reference: 150,000-400,000). This suggests that the patient may have thrombocytosis, a condition characterized by an abnormally high platelet count.",
+    "reference": "420,000 /uL, high",
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9333903390617596
+  },
+  {
+    "user_input": "What is the AST level?",
+    "retrieved_contexts": [
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)",
+      "=== THYROID FUNCTION TESTS (TFT) ===\nTSH (Thyroid Stimulating Hormone): 6.8 uIU/mL [HIGH] (Reference: 0.4-4.0)\nFree T4 (FT4): 0.7 ng/dL        [LOW]  (Reference: 0.8-1.8)\nFree T3 (FT3): 2.4 pg/mL        [LOW]  (Reference: 2.3-4.2)\nAnti-TPO Antibodies: 145 IU/mL  [HIGH] (Reference: <35)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "response": "The AST (SGOT) level is 54 U/L, which is high according to the reference range of 10-40 U/L.",
+    "reference": "54 U/L, high",
+    "faithfulness": 0.6666666666666666,
+    "answer_relevancy": 0.7931224313724949
+  }
+]

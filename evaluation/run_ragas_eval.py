@@ -141,13 +141,15 @@ def main():
         dense_chunks = [d.page_content for d in dense_docs]
 
         if hasattr(agent, "retrieve_bm25") and hasattr(agent, "fuse_rrf"):
-            # Hybrid path: BM25 + RRF fusion
+            # Hybrid + reranker path: BM25 + RRF fusion (top 8), then cross-encoder rerank (top 3)
             bm25_chunks = agent.retrieve_bm25(q, k=5)
-            fused = agent.fuse_rrf(dense_chunks, bm25_chunks, k=60)
+            fused = agent.fuse_rrf(dense_chunks, bm25_chunks, k=60, top_n=8)
+            reranked_results = agent.rerank(q, fused, top_k=3)
+            final_contexts = [chunk for chunk, _ in reranked_results]
         else:
             # Dense-only path: just use FAISS results directly
             fused = dense_chunks
-        final_contexts = fused[:3]
+            final_contexts = fused[:3]
         
         # 2. Get the actual LLM response
         ans = agent.get_response(q, vectorstore, [])
@@ -208,7 +210,7 @@ def main():
     print(result)
     
     # Save to JSON
-    out_file = "scratch/eval_results_baseline_dense_only.json"
+    out_file = "evaluation/results_hybrid_reranked.json"
     with open(out_file, "w") as f:
         # Convert EvaluationResult -> Pandas DataFrame -> List of Dicts for JSON serialization
         json.dump(df.to_dict(orient="records"), f, indent=2)

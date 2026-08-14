@@ -24,6 +24,20 @@
 *   **Modern UI/UX:** A clean, visually consistent interface with a dark Navy/Teal aesthetic.
 *   **Database Management:** Structured storage for user sessions, chats, and uploaded reports.
 
+
+## 📊 Retrieval Evaluation (RAGAS)
+
+Retrieval quality was measured with a RAGAS-based evaluation harness (faithfulness, answer relevancy) across three retrieval configurations, using 8 test questions against a sample blood report.
+
+| Metric | Dense-Only | Hybrid (BM25 + RRF) | Hybrid + Reranked |
+|---|---|---|---|
+| Faithfulness | 0.54 | 0.86 | 0.85 |
+| Answer Relevancy | 0.42 | 0.82 | 0.83 |
+
+Hybrid retrieval (BM25 + FAISS dense search fused via Reciprocal Rank Fusion) improved faithfulness by ~60% and answer relevancy by ~91% over dense-only retrieval — dense-only frequently failed to surface the correct chunk even when it was present in retrieval, answering "I don't know" for several lab values despite relevant context being available.
+
+Adding a cross-encoder reranker (`ms-marco-MiniLM-L-6-v2`) on top of hybrid retrieval showed no regression and correctly resolved ordering ambiguity in targeted tests (e.g. promoting the correct chunk to top rank for a query where RRF alone ranked an irrelevant chunk first). On this small, well-structured test corpus, RRF fusion already surfaces the right chunk most of the time; the reranker's benefit is expected to be more pronounced on larger, noisier real-world documents. Full results in `evaluation/`.
+
 ## 🛠️ Technologies Used
 
 *   **Frontend & Application Logic:** [Streamlit](https://streamlit.io/)

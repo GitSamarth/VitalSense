@@ -49,3 +49,5 @@ htmlcov/
 .coverage.*
 coverage.xml
 *.cover
+
+debug_extracted_text.txt
