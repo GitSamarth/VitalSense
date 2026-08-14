@@ -3,6 +3,7 @@ import streamlit as st
 from enum import Enum
 import logging
 import time
+from utils.config import get_secret
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +53,7 @@ class ModelManager:
     def _initialize_clients(self):
         """Initialize API clients for each provider."""
         try:
-            self.clients["groq"] = groq.Groq(api_key=st.secrets["GROQ_API_KEY"])
+            self.clients["groq"] = groq.Groq(api_key=get_secret("GROQ_API_KEY"))
         except Exception as e:
             logger.error(f"Failed to initialize Groq client: {str(e)}")
 

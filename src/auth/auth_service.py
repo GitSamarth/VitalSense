@@ -3,6 +3,7 @@ from supabase import create_client
 from datetime import datetime
 import time
 import re
+from utils.config import get_secret
 
 
 class AuthService:
@@ -11,7 +12,7 @@ class AuthService:
             # Initialize Supabase client directly
             # This ensures a fresh client for each session, preventing state leakage
             self.supabase = create_client(
-                st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"]
+                get_secret("SUPABASE_URL"), get_secret("SUPABASE_KEY")
             )
         except Exception as e:
             st.error(f"Failed to initialize services: {str(e)}")

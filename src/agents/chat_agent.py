@@ -8,6 +8,7 @@ from sentence_transformers import CrossEncoder
 import logging
 import re
 import os
+from utils.config import get_secret
 
 logger = logging.getLogger("chat_agent")
 
@@ -27,7 +28,7 @@ class ChatAgent:
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=512, chunk_overlap=50
         )
-        self.client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+        self.client = Groq(api_key=get_secret("GROQ_API_KEY"))
         self.model_name = "llama-3.3-70b-versatile"
         # BM25 index and raw chunks — populated in initialize_vector_store.
         # Parallel retrieval path; not yet fused into LLM context (RRF next step).
