@@ -1,0 +1,74 @@
+[
+  {
+    "query": "What is my hemoglobin level?",
+    "pre_rerank_top3": [
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)",
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "BLOOD TEST REPORT\nDate: 13/08/2026\nPatient: Test Patient | Age: 42 | Sex: Male\nLaboratory: VitalSense Diagnostics"
+    ],
+    "post_rerank_top3": [
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)",
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)"
+    ],
+    "ce_scores": [
+      -1.3914101123809814,
+      -7.430419445037842,
+      -7.879745960235596
+    ]
+  },
+  {
+    "query": "What is my cholesterol and LDL?",
+    "pre_rerank_top3": [
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "=== THYROID FUNCTION TESTS (TFT) ===\nTSH (Thyroid Stimulating Hormone): 6.8 uIU/mL [HIGH] (Reference: 0.4-4.0)\nFree T4 (FT4): 0.7 ng/dL        [LOW]  (Reference: 0.8-1.8)\nFree T3 (FT3): 2.4 pg/mL        [LOW]  (Reference: 2.3-4.2)\nAnti-TPO Antibodies: 145 IU/mL  [HIGH] (Reference: <35)\n\nClinical Notes: Pattern consistent with iron-deficiency anemia and subclinical\nhypothyroidism. Elevated liver enzymes and lipid profile require follow-up.\nRecommend dietary review and repeat CBC in 6 weeks.",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "post_rerank_top3": [
+      "=== LIPID PANEL ===\nTotal Cholesterol: 238 mg/dL    [HIGH]  (Reference: <200)\nHDL Cholesterol: 38 mg/dL       [LOW]   (Reference: >40 male)\nLDL Cholesterol: 162 mg/dL      [HIGH]  (Reference: <130)\nTriglycerides: 195 mg/dL        [HIGH]  (Reference: <150)\nVLDL Cholesterol: 39 mg/dL      [HIGH]  (Reference: 5-40)\nTotal Cholesterol/HDL Ratio: 6.3 [HIGH] (Reference: <5.0)",
+      "Albumin: 4.1 g/dL                       (Reference: 3.5-5.0)\nGlobulin: 3.1 g/dL                      (Reference: 2.3-3.5)",
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)"
+    ],
+    "ce_scores": [
+      -0.6368727684020996,
+      -10.177928924560547,
+      -10.562312126159668
+    ]
+  },
+  {
+    "query": "What is my TSH and thyroid levels?",
+    "pre_rerank_top3": [
+      "=== THYROID FUNCTION TESTS (TFT) ===\nTSH (Thyroid Stimulating Hormone): 6.8 uIU/mL [HIGH] (Reference: 0.4-4.0)\nFree T4 (FT4): 0.7 ng/dL        [LOW]  (Reference: 0.8-1.8)\nFree T3 (FT3): 2.4 pg/mL        [LOW]  (Reference: 2.3-4.2)\nAnti-TPO Antibodies: 145 IU/mL  [HIGH] (Reference: <35)\n\nClinical Notes: Pattern consistent with iron-deficiency anemia and subclinical\nhypothyroidism. Elevated liver enzymes and lipid profile require follow-up.\nRecommend dietary review and repeat CBC in 6 weeks.",
+      "BLOOD TEST REPORT\nDate: 13/08/2026\nPatient: Test Patient | Age: 42 | Sex: Male\nLaboratory: VitalSense Diagnostics",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)"
+    ],
+    "post_rerank_top3": [
+      "=== THYROID FUNCTION TESTS (TFT) ===\nTSH (Thyroid Stimulating Hormone): 6.8 uIU/mL [HIGH] (Reference: 0.4-4.0)\nFree T4 (FT4): 0.7 ng/dL        [LOW]  (Reference: 0.8-1.8)\nFree T3 (FT3): 2.4 pg/mL        [LOW]  (Reference: 2.3-4.2)\nAnti-TPO Antibodies: 145 IU/mL  [HIGH] (Reference: <35)\n\nClinical Notes: Pattern consistent with iron-deficiency anemia and subclinical\nhypothyroidism. Elevated liver enzymes and lipid profile require follow-up.\nRecommend dietary review and repeat CBC in 6 weeks.",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "ce_scores": [
+      0.28960004448890686,
+      -10.325784683227539,
+      -10.622152328491211
+    ]
+  },
+  {
+    "query": "What is my ALT level?",
+    "pre_rerank_top3": [
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "post_rerank_top3": [
+      "=== LIVER FUNCTION TESTS (LFT) ===\nALT (SGPT): 68 U/L              [HIGH]  (Reference: 7-56)\nAST (SGOT): 54 U/L              [HIGH]  (Reference: 10-40)\nAlkaline Phosphatase (ALP): 112 U/L     (Reference: 44-147)\nTotal Bilirubin: 1.4 mg/dL      [HIGH]  (Reference: 0.3-1.2)\nDirect Bilirubin: 0.5 mg/dL             (Reference: 0.0-0.3)\nIndirect Bilirubin: 0.9 mg/dL           (Reference: 0.1-1.0)\nTotal Protein: 7.2 g/dL                 (Reference: 6.3-8.2)",
+      "MCV: 72 fL              [LOW]  (Reference: 80-100)\nMCH: 22 pg              [LOW]  (Reference: 27-33)\nMCHC: 30 g/dL           [LOW]  (Reference: 32-36)\nRDW: 17.5%              [HIGH] (Reference: 11.5-14.5)",
+      "=== COMPLETE BLOOD COUNT (CBC) ===\nHemoglobin: 11.2 g/dL  [LOW]  (Reference: 13.5-17.5)\nHematocrit: 34%         [LOW]  (Reference: 41-53%)\nRed Blood Cells (RBC): 3.8 M/uL [LOW] (Reference: 4.5-5.9)\nWhite Blood Cells (WBC): 11,200 /uL [HIGH] (Reference: 4,500-11,000)\nNeutrophils: 78%        [HIGH] (Reference: 40-70%)\nLymphocytes: 16%        [LOW]  (Reference: 20-40%)\nMonocytes: 6%           (Reference: 2-8%)\nPlatelets: 420,000 /uL  [HIGH] (Reference: 150,000-400,000)"
+    ],
+    "ce_scores": [
+      -5.778119087219238,
+      -10.622760772705078,
+      -10.810840606689453
+    ]
+  }
+]

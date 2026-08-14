@@ -4,6 +4,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from rank_bm25 import BM25Okapi
+from sentence_transformers import CrossEncoder
 import logging
 import re
 import os
@@ -32,6 +33,10 @@ class ChatAgent:
         # Parallel retrieval path; not yet fused into LLM context (RRF next step).
         self.bm25_index = None
         self.bm25_chunks = []
+        # Cross-encoder reranker — loaded once at construction, used in rerank().
+        # Isolated from get_response until rerank() is verified standalone.
+        self.cross_encoder = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+        logger.debug("CrossEncoder model loaded: cross-encoder/ms-marco-MiniLM-L-6-v2")
 
     def initialize_vector_store(self, text_content):
         """Create FAISS vector store and BM25 index from text content."""
@@ -106,6 +111,7 @@ class ChatAgent:
         dense_results: list[str],
         bm25_results: list[str],
         k: int = 60,
+        top_n: int | None = 8,
     ) -> list[str]:
         """Combine FAISS dense and BM25 sparse ranked lists via Reciprocal Rank Fusion.
 
@@ -122,9 +128,12 @@ class ChatAgent:
             dense_results: Chunks ordered by FAISS similarity (index 0 = most similar).
             bm25_results:  Chunks ordered by BM25 score (index 0 = highest score).
             k:             RRF smoothing constant (default 60).
+            top_n:         Cap on returned chunks.  Default 8 gives the cross-encoder
+                           reranker a meaningful pool without blowing out context.  Pass
+                           None to return all unique fused chunks.
 
         Returns:
-            All unique chunks sorted by combined RRF score, descending.
+            Up to top_n unique chunks sorted by combined RRF score, descending.
         """
         rrf_scores: dict[str, float] = {}
 
@@ -149,7 +158,50 @@ class ChatAgent:
             )
         logger.debug("RRF fused ranking:\n%s", "\n".join(log_lines))
 
-        return [chunk for chunk, _ in fused]
+        all_chunks = [chunk for chunk, _ in fused]
+        return all_chunks[:top_n] if top_n is not None else all_chunks
+
+    def rerank(
+        self,
+        query: str,
+        chunks: list[str],
+        top_k: int = 3,
+    ) -> list[tuple[str, float]]:
+        """Rerank chunks using the cross-encoder and return the top_k best.
+
+        Scores every (query, chunk) pair with the cross-encoder in a single
+        batched call, then sorts descending by score.  Mirrors the standalone
+        pattern used for retrieve_bm25 — not yet wired into get_response.
+
+        Args:
+            query:  The user query (or contextualized form of it).
+            chunks: Candidate chunks to rerank, e.g. from fuse_rrf().
+            top_k:  Number of top-scoring chunks to return (default 3).
+
+        Returns:
+            List of up to top_k (chunk, score) tuples sorted by cross-encoder score, descending.
+        """
+        if not chunks:
+            logger.warning("rerank() called with empty chunk list — returning []")
+            return []
+
+        pairs = [(query, chunk) for chunk in chunks]
+        scores = self.cross_encoder.predict(pairs)   # ndarray, one score per pair
+
+        scored = sorted(
+            zip(scores, chunks), key=lambda x: x[0], reverse=True
+        )
+
+        logger.debug(
+            "Cross-encoder scores for query %r:\n%s",
+            query,
+            "\n".join(
+                f"  [ce_score={s:.4f}] {c[:120].strip()!r}"
+                for s, c in scored
+            ),
+        )
+
+        return [(chunk, float(score)) for score, chunk in scored[:top_k]]
 
     def _format_chat_history(self, chat_history):
         """Format chat history for Groq API."""
@@ -216,11 +268,24 @@ Standalone Question:"""
             # 2b. Sparse: BM25 top-5 over the same corpus
             bm25_chunks = self.retrieve_bm25(contextualized_query, k=5)
 
-            # 2c. Fuse both ranked lists with RRF (k=60 smoothing constant)
-            fused_chunks = self.fuse_rrf(dense_chunks, bm25_chunks, k=60)
+            # 2c. Fuse both ranked lists with RRF (k=60 smoothing constant, widened to top 8)
+            fused_chunks = self.fuse_rrf(dense_chunks, bm25_chunks, k=60, top_n=8)
 
-            # 2d. Take top-3 fused chunks as the LLM context window
-            context = "\n\n".join(fused_chunks[:3])
+            # 2d. Rerank the fused pool using the cross-encoder
+            reranked_results = self.rerank(contextualized_query, fused_chunks, top_k=3)
+            reranked_chunks = [chunk for chunk, _ in reranked_results]
+
+            # Debug log the final selected context chunks and their scores
+            if reranked_results:
+                logger.debug("Final LLM Context (Cross-Encoder top-3):")
+                for i, (chunk, score) in enumerate(reranked_results, 1):
+                    logger.debug(
+                        "--- FINAL CHUNK %d (ce_score=%.4f) ---\n%s\n----------------------------------------",
+                        i, score, chunk
+                    )
+
+            # 2e. Take top-3 reranked chunks as the LLM context window
+            context = "\n\n".join(reranked_chunks)
 
             # Guard against placeholder-only context
             if context.strip() == "No report context available.":
