@@ -1,0 +1,43 @@
+# === Secrets — NEVER bake into the image ===
+.streamlit/secrets.toml
+.env
+
+# === Git ===
+.git
+.gitignore
+
+# === Python bytecode ===
+__pycache__
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# === Virtual environments ===
+venv/
+env/
+.env/
+.venv/
+ENV/
+
+# === Evaluation scripts & results (not needed at runtime) ===
+evaluation/
+
+# === IDE & OS artifacts ===
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+
+# === Test artifacts ===
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+
+# === Debug files ===
+debug_extracted_text.txt
+*.log
+logs/

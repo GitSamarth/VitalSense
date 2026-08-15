@@ -94,6 +94,23 @@ GROQ_API_KEY = "your-groq-api-key"
 streamlit run src/main.py
 ```
 
+### 5. Run with Docker (alternative)
+Secrets are passed as environment variables — do **not** bake `secrets.toml` into the image.
+
+```bash
+# Build
+docker build -t vitalsense .
+
+# Run
+docker run -p 8501:8501 \
+  -e GROQ_API_KEY=your-groq-api-key \
+  -e SUPABASE_URL=your-supabase-url \
+  -e SUPABASE_KEY=your-supabase-key \
+  vitalsense
+```
+
+Then open [http://localhost:8501](http://localhost:8501).
+
 ## 📈 Project Evolution
 
 ### Current Version (VitalSense)
