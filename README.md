@@ -20,11 +20,12 @@
 *   **Medical Report Analysis:** Upload your medical reports (PDFs) and extract structured insights instantly.
 *   **Hybrid RAG Retrieval:** Combines BM25 (sparse) and FAISS (dense) retrieval via Reciprocal Rank Fusion, followed by cross-encoder reranking (`ms-marco-MiniLM-L-6-v2`) for grounded, accurate answers.
 *   **Evaluated with RAGAS:** Retrieval quality is measured with a RAGAS-based evaluation harness (faithfulness, answer relevancy) — hybrid retrieval showed a 60%+ faithfulness improvement and 91% relevancy improvement over dense-only retrieval in testing. See `evaluation/`.
+*   **Guardrails:** PII redaction (patient name, age, ID fields masked before reaching the LLM) and prompt injection detection — user queries containing injection attempts are rejected outright, while injection patterns embedded in uploaded documents are silently stripped before analysis, with all actions logged for auditability (no sensitive content logged).
+*   **Resilient Multi-Model Fallback:** A tiered fallback cascade across multiple Groq models ensures continued availability if a specific model becomes rate-limited or is deprecated by the provider.
 *   **Interactive RAG Chat:** Chat directly with your reports to ask follow-up questions, understand complex medical jargon, and track health trends.
 *   **Modern UI/UX:** A clean, visually consistent interface with a dark Navy/Teal aesthetic.
 *   **Database Management:** Structured storage for user sessions, chats, and uploaded reports.
 *   **Containerised Deployment:** Docker support with runtime secret injection — no credentials baked into the image.
-
 
 ## 📊 Retrieval Evaluation (RAGAS)
 
@@ -43,7 +44,7 @@ Adding a cross-encoder reranker (`ms-marco-MiniLM-L-6-v2`) on top of hybrid retr
 
 *   **Frontend & Application Logic:** [Streamlit](https://streamlit.io/)
 *   **Authentication & Database:** [Supabase](https://supabase.com/)
-*   **LLM Engine:** Groq (Llama 3.x models, multi-tier fallback cascade)
+*   **LLM Engine:** Groq (`openai/gpt-oss-120b` primary, multi-tier fallback cascade across Production-tier models)
 *   **Retrieval:** LangChain, FAISS, BM25 (`rank_bm25`), HuggingFace embeddings, cross-encoder reranking
 *   **Evaluation:** RAGAS (faithfulness, answer relevancy)
 *   **Containerisation:** Docker (runtime secret injection via `--env-file`)
@@ -126,6 +127,7 @@ docker run --rm -p 8501:8501 \
 
 Then open [http://localhost:8501](http://localhost:8501).
 
+
 ## 📈 Project Evolution
 
 ### Current Version (VitalSense)
@@ -133,11 +135,10 @@ Built on top of the original open-source **[Hia](https://github.com/harshhh28/hi
 - Hybrid retrieval (BM25 + FAISS dense search via Reciprocal Rank Fusion)
 - Cross-encoder reranking for improved context relevance
 - A RAGAS-based evaluation harness with measured before/after retrieval quality
+- PII redaction and prompt injection guardrails, verified against both user-query and document-embedded injection attempts
+- A resilient multi-model fallback cascade (recovered from a real incident where the provider deprecated all previously configured models)
 - Dockerized deployment with secure runtime secret injection
 - Rebranded UI (Navy/Teal theme) and streamlined repository
-
-### Planned Development
-Guardrails (PII redaction, prompt injection detection) are planned for a future update.
 
 ## 📝 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
