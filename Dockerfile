@@ -33,8 +33,9 @@ COPY .streamlit/config.toml ./.streamlit/config.toml
 EXPOSE 8501
 
 # Secrets are injected at runtime via -e env vars, NOT baked into the image.
-# Streamlit reads GROQ_API_KEY / SUPABASE_URL / SUPABASE_KEY from the environment
-# when st.secrets["KEY"] is called and no secrets.toml is present.
+# The app uses get_secret() in src/utils/config.py, which checks os.environ first 
+# and falls back to st.secrets, enabling secrets to be injected via -e/--env-file 
+# at container runtime without being baked into the image.
 CMD ["streamlit", "run", "src/main.py", \
      "--server.port=8501", \
      "--server.address=0.0.0.0", \
