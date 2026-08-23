@@ -2,6 +2,7 @@ import streamlit as st
 from agents.analysis_agent import AnalysisAgent
 # from agents.chat_agent import ChatAgent
 from utils.config import get_secret
+from utils.pii_redactor import detect_injection_attempt
 
 
 def init_analysis_state():
@@ -64,6 +65,10 @@ def get_chat_response(query, context_text, chat_history):
     """Generate chat response using RAG."""
     init_analysis_state()
 
+    # Guard: reject queries that contain prompt-injection patterns.
+    # The neutral message is intentionally uninformative to avoid teaching evasion.
+    if detect_injection_attempt(query):
+        return "This query couldn't be processed. Please rephrase your question."
     # Check if chat agent was successfully initialized
     if st.session_state.chat_agent is None:
         error_msg = st.session_state.get(

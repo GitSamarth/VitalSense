@@ -29,7 +29,7 @@ class ChatAgent:
             chunk_size=512, chunk_overlap=50
         )
         self.client = Groq(api_key=get_secret("GROQ_API_KEY"))
-        self.model_name = "llama-3.3-70b-versatile"
+        self.model_name = "openai/gpt-oss-120b"
         # BM25 index and raw chunks — populated in initialize_vector_store.
         # Parallel retrieval path; not yet fused into LLM context (RRF next step).
         self.bm25_index = None

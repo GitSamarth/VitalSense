@@ -22,25 +22,25 @@ class ModelManager:
     MODEL_CONFIG = {
         ModelTier.PRIMARY: {
             "provider": "groq",
-            "model": "meta-llama/llama-4-maverick-17b-128e-instruct",
+            "model": "openai/gpt-oss-120b",
             "max_tokens": 2000,
             "temperature": 0.7
         },
         ModelTier.SECONDARY: {
             "provider": "groq", 
-            "model": "llama-3.3-70b-versatile",
+            "model": "openai/gpt-oss-20b",
             "max_tokens": 2000,
             "temperature": 0.7
         },
         ModelTier.TERTIARY: {
             "provider": "groq",
-            "model": "llama-3.1-8b-instant",
+            "model": "groq/compound",
             "max_tokens": 2000, 
             "temperature": 0.7
         },
         ModelTier.FALLBACK: {
             "provider": "groq",
-            "model": "llama3-70b-8192",
+            "model": "groq/compound-mini",
             "max_tokens": 2000,
             "temperature": 0.7
         }

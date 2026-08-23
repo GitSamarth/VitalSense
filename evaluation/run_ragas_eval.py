@@ -2,11 +2,11 @@
 Eval harness config — KEEP CONSISTENT across baseline (dense-only) and hybrid runs.
 Changing either model or the scoring config invalidates before/after comparisons.
 
-Generation model (agent.model): llama-3.1-8b-instant
-Judge model: llama-3.1-8b-instant
-(Both switched from llama-3.3-70b-versatile due to 70b daily rate limit
-exhaustion during testing — 70b was producing literal rate-limit error 
-strings mid-run, which got silently scored as ungrounded answers.)
+Generation model (agent.model): openai/gpt-oss-120b
+Judge model: openai/gpt-oss-120b
+(Originally used llama-3.1-8b-instant, which was switched from 
+llama-3.3-70b-versatile due to 70b rate limits. Now updated to 
+openai/gpt-oss-120b since all Llama models were deprecated by Groq.)
 
 faithfulness: default strictness (n=1, via agenerate/generate monkey-patch 
               that strips 'n' before it reaches Groq's API)
@@ -123,7 +123,7 @@ QA_PAIRS = [
 def main():
     agent = ChatAgent()
     # OVERRIDE: Also switch the agent's internal model to bypass the 70B rate limit
-    agent.model_name = "llama-3.1-8b-instant"
+    agent.model_name = "openai/gpt-oss-120b"
     vectorstore = agent.initialize_vector_store(SAMPLE)
     
     data = {
@@ -165,7 +165,7 @@ def main():
     
     # Configure Ragas judge
     # Uses our HF embeddings (all-MiniLM-L6-v2) and Groq Llama 3 8B (to save tokens)
-    judge_llm = ChatGroq(model="llama-3.1-8b-instant", api_key=groq_key)
+    judge_llm = ChatGroq(model="openai/gpt-oss-120b", api_key=groq_key)
     
     # MONKEY-PATCH: Groq's API strictly rejects n > 1. Ragas requests n>1 
     # for self-consistency in some metrics (like answer_relevancy). 
