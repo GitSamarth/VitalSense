@@ -1,8 +1,8 @@
 <div align="center">
   <h1>❖ VitalSense</h1>
-  <p>Your Personal AI Health Assistant</p>
+  <p>Hybrid RAG pipeline (BM25 + FAISS + RRF, cross-encoder reranking) for health report Q&A — RAGAS-evaluated, Dockerized | LangChain · Groq · Streamlit</p>
 
-  <a href="https://github.com/GitSamarth/VitalSense/issues"><img src="https://img.shields.io/github/issues/GitSamarth/VitalSense"></a> 
+  <a href="https://github.com/GitSamarth/VitalSense/issues"><img src="https://img.shields.io/github/issues/GitSamarth/VitalSense"></a>
   <a href="https://github.com/GitSamarth/VitalSense/stargazers"><img src="https://img.shields.io/github/stars/GitSamarth/VitalSense"></a>
   <a href="https://github.com/GitSamarth/VitalSense/network/members"><img src="https://img.shields.io/github/forks/GitSamarth/VitalSense"></a>
   <a href="https://github.com/GitSamarth/VitalSense/blob/main/LICENSE">
@@ -23,6 +23,7 @@
 *   **Interactive RAG Chat:** Chat directly with your reports to ask follow-up questions, understand complex medical jargon, and track health trends.
 *   **Modern UI/UX:** A clean, visually consistent interface with a dark Navy/Teal aesthetic.
 *   **Database Management:** Structured storage for user sessions, chats, and uploaded reports.
+*   **Containerised Deployment:** Docker support with runtime secret injection — no credentials baked into the image.
 
 
 ## 📊 Retrieval Evaluation (RAGAS)
@@ -45,6 +46,7 @@ Adding a cross-encoder reranker (`ms-marco-MiniLM-L-6-v2`) on top of hybrid retr
 *   **LLM Engine:** Groq (Llama 3.x models, multi-tier fallback cascade)
 *   **Retrieval:** LangChain, FAISS, BM25 (`rank_bm25`), HuggingFace embeddings, cross-encoder reranking
 *   **Evaluation:** RAGAS (faithfulness, answer relevancy)
+*   **Containerisation:** Docker (runtime secret injection via `--env-file`)
 *   **Styling:** Custom Streamlit CSS & Theming
 
 ## 🏗️ Project Structure
@@ -52,11 +54,13 @@ Adding a cross-encoder reranker (`ms-marco-MiniLM-L-6-v2`) on top of hybrid retr
 ```text
 VitalSense/
 ├── .streamlit/             # Streamlit configuration and themes
-├── evaluation/              # RAG evaluation scripts and results (RAGAS, hybrid vs baseline)
+├── .dockerignore           # Ensures secrets and caches are excluded from the image
+├── Dockerfile              # Container definition with runtime secret injection
+├── evaluation/             # RAG evaluation scripts and results (RAGAS, hybrid vs baseline)
 ├── public/                 # Static assets
 ├── src/                    # Source code
 │   ├── auth/               # Authentication logic and session management
-│   ├── agents/              # Chat and analysis agents (RAG pipeline, reranking)
+│   ├── agents/             # Chat and analysis agents (RAG pipeline, reranking)
 │   ├── components/         # Reusable UI components (Sidebar, Footer, Analysis Forms)
 │   ├── config/             # App configurations and constants
 │   ├── utils/              # Helper functions and validators
@@ -66,8 +70,6 @@ VitalSense/
 ```
 
 ## ⚙️ Local Development Setup
-
-To run VitalSense locally, follow these steps:
 
 ### 1. Clone the repository
 ```bash
@@ -94,15 +96,28 @@ GROQ_API_KEY = "your-groq-api-key"
 streamlit run src/main.py
 ```
 
-### 5. Run with Docker (alternative)
-Secrets are passed as environment variables — do **not** bake `secrets.toml` into the image.
+### 5. Run with Docker
+
+Secrets are injected at runtime via an `.env` file — never committed to the repo or baked into the image.
+
+Create a `.env` file in the project root (it is already in `.gitignore` and `.dockerignore`):
+```
+GROQ_API_KEY=your-groq-api-key
+SUPABASE_URL=your-supabase-url
+SUPABASE_KEY=your-supabase-key
+```
+
+> ⚠️ No spaces around `=`. Docker's env-file parser does not strip whitespace.
 
 ```bash
 # Build
 docker build -t vitalsense .
 
-# Run
-docker run -p 8501:8501 \
+# Run (recommended — uses .env file)
+docker run --rm --env-file .env -p 8501:8501 vitalsense
+
+# Run (one-liner alternative — inline env vars)
+docker run --rm -p 8501:8501 \
   -e GROQ_API_KEY=your-groq-api-key \
   -e SUPABASE_URL=your-supabase-url \
   -e SUPABASE_KEY=your-supabase-key \
@@ -118,6 +133,7 @@ Built on top of the original open-source **[Hia](https://github.com/harshhh28/hi
 - Hybrid retrieval (BM25 + FAISS dense search via Reciprocal Rank Fusion)
 - Cross-encoder reranking for improved context relevance
 - A RAGAS-based evaluation harness with measured before/after retrieval quality
+- Dockerized deployment with secure runtime secret injection
 - Rebranded UI (Navy/Teal theme) and streamlined repository
 
 ### Planned Development
